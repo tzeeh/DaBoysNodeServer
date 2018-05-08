@@ -15,7 +15,7 @@ function openGame(playerNameText) {
             url = 'http://localhost:3000';
         }
         else{
-            url = 'http://http://18.219.199.138/';
+            url = 'http://http://18.219.199.138:3000';
         }
         var socket = io.connect(url);
         
