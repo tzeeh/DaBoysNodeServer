@@ -9,7 +9,15 @@ function openGame(playerNameText) {
     if(playerNameText.val()){
         $('#btnConnect').attr('disabled',true);
         localStorage.setItem('playerName',playerNameText.val());
-        var socket = io.connect('http://localhost:3000');
+        console.log(window.location);
+        var url = '';
+        if(window.location.hostname=='localhost'){
+            url = 'http://localhost:3000';
+        }
+        else{
+            url = 'http://http://18.219.199.138/';
+        }
+        var socket = io.connect(url);
         
         $('#gameLog').html("You Entered the Game<br>");
         socket.emit('join', playerNameText.val());    
