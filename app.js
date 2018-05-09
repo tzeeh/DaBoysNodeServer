@@ -3,6 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var hbs = require('express-handlebars');
+var io = require('socket.io')();
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -11,8 +13,9 @@ var app = express();
 
 
 // view engine setup
+app.engine('hbs',hbs({extname:'hbs', defaultLayout:'main' ,layoutsDir:__dirname + '/views/layouts/'}));
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'hbs');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -38,5 +41,29 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+
+
+// Socket Listen
+io.on('connection', function (socket) {
+  socket.on('join', function (name) {
+    socket.broadcast.emit('new join', name + ' Joined The Game');
+  });
+  socket.on('roll', function (data) {
+    data.diceRoll = rollDice(data.sides);
+    socket.broadcast.emit('new roll', data.roller+' rolled a '+data.diceRoll);
+  });
+  
+  
+});
+
+function rollDice(sides) {
+  return Math.floor(Math.random() * sides) + 1;
+}
 
 module.exports = app;

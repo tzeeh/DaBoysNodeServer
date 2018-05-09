@@ -1,0 +1,12 @@
+<div class="jumbotron">
+  <div class="container">
+    <p>Would you like to connect?</p>
+    <input id="textPlayerName" type="text" placeholder="Player Name" required="required" aria-label="Player Name" class="form-control col-lg-3"/><br/>
+    <button id="btnConnect" onclick="openGame($('#textPlayerName'))" class="btn btn-success">Connect to Game <i class="fas fa-gamepad"></i></button>
+  </div>
+</div>
+<div id="gameTable"></div>
+<div class="container">
+  <div id="gameLog"></div><br/>
+  <button onclick="diceRoll($('#textPlayerName'))" class="btn btn-primary">Roll Dice</button><br/><br/><br/><br/>
+</div>

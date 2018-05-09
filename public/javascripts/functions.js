@@ -9,7 +9,6 @@ function openGame(playerNameText) {
     if(playerNameText.val()){
         $('#btnConnect').attr('disabled',true);
         localStorage.setItem('playerName',playerNameText.val());
-        console.log(window.location);
         var url = '';
         if(window.location.hostname=='localhost'){
             url = 'http://localhost:3000';
